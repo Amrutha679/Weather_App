@@ -10,8 +10,8 @@ import UIKit
 
 class ForecastTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var latLable: UILabel!
-    @IBOutlet weak var lonLable: UILabel!
+   // @IBOutlet weak var latLable: UILabel!
+  //  @IBOutlet weak var lonLable: UILabel!
     
     
   /*  override func awakeFromNib() {
@@ -24,15 +24,6 @@ class ForecastTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }*/
-    func gettingData()
-    {
-        let url = URL(string: "api.openweathermap.org/data/2.5/weather?q=Chicago&appid=1c2f47340db7f7b1539792594a950c6e")
-        let session = URLSession.shared
-        var request = URLRequest(url: url!)
-        request.httpMethod = "GET"
-        request.addValue("api.openweathermap.org/data/2.5/weather?q=Chicago&appid=1c2f47340db7f7b1539792594a950c6e", forHTTPHeaderField: "Authorization")
-       // let task = session.dataTask(with: request as URLRequest,completionHandler: })
-        
-    }
+   
     
 }
