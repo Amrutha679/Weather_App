@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F0551B07256648EE00833BD9 /* ForecastData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0551B06256648EE00833BD9 /* ForecastData.swift */; };
 		F05C93182563F1A30078F7F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05C93172563F1A30078F7F3 /* AppDelegate.swift */; };
 		F05C931A2563F1A30078F7F3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05C93192563F1A30078F7F3 /* SceneDelegate.swift */; };
 		F05C931C2563F1A30078F7F3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05C931B2563F1A30078F7F3 /* ViewController.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F0551B06256648EE00833BD9 /* ForecastData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ForecastData.swift; path = WeatherApp/Controllers/ForecastData.swift; sourceTree = SOURCE_ROOT; };
 		F05C93142563F1A30078F7F3 /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F05C93172563F1A30078F7F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F05C93192563F1A30078F7F3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 		F05C93372563F9EC0078F7F3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				F0551B06256648EE00833BD9 /* ForecastData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -188,6 +191,7 @@
 				F061CFBF256524D600BCBCE2 /* ForecastTableViewCell.swift in Sources */,
 				F05C932E2563F6810078F7F3 /* ForecastViewController.swift in Sources */,
 				F05C93182563F1A30078F7F3 /* AppDelegate.swift in Sources */,
+				F0551B07256648EE00833BD9 /* ForecastData.swift in Sources */,
 				F05C931A2563F1A30078F7F3 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
