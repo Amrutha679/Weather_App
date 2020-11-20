@@ -44,7 +44,8 @@
 
 
 
-test({"coord":{"lon":-0.13,"lat":51.51},"weather":[{"id":741,"main":"Fog","description":"fog","icon":"50n"}],"base":"stations","main":{"temp":284.04,"pressure":1011,"humidity":93,"tempmin":280.93,"tempmax":287.04},"visibility":10000,"wind":{"speed":1.5},"clouds":{"all":20},"dt":1570234102,"sys":{"type":1,"id":1417,"message":0.0102,"country":"GB","sunrise":1570255614,"sunset":1570296659},"timezone":3600,"id":2643743,"name":"London","cod":200})
+test({"coord":
+    {"lon":-0.13,"lat":51.51},"weather":[{"id":741,"main":"Fog","description":"fog","icon":"50n"}],"base":"stations","main":{"temp":284.04,"pressure":1011,"humidity":93,"tempmin":280.93,"tempmax":287.04},"visibility":10000,"wind":{"speed":1.5},"clouds":{"all":20},"dt":1570234102,"sys":{"type":1,"id":1417,"message":0.0102,"country":"GB","sunrise":1570255614,"sunset":1570296659},"timezone":3600,"id":2643743,"name":"London","cod":200})
 
 
 
@@ -55,11 +56,11 @@ test({"coord":{"lon":-0.13,"lat":51.51},"weather":[{"id":741,"main":"Fog","descr
 
 
 
-{5 items
-"city":{6 items
+{
+"city":{
 "id":5391959
 "name":"San Francisco"
-"coord":{...}2 items
+"coord":{...}
 "country":"US"
 "population":805235
 "timezone":-25200
@@ -67,84 +68,84 @@ test({"coord":{"lon":-0.13,"lat":51.51},"weather":[{"id":741,"main":"Fog","descr
 "cod":"200"
 "message":15.5281587
 "cnt":10
-"list":[10 items
-0:{10 items
+"list":[
+0:{
 "dt":1570258800
 "sunrise":1570284513
 "sunset":1570326446
-"temp":{...}6 items
+"temp":{...}
 "pressure":1020
 "humidity":69
-"weather":[...]1 item
+"weather":[...]
 "speed":1.822
 "deg":329
 "clouds":0
 }
-1:{10 items
+1:{
 "dt":1570345200
 "sunrise":1570370966
 "sunset":1570412756
-"temp":{...}6 items
+"temp":{...}6
 "pressure":1016
 "humidity":50
-"weather":[...]1 item
+"weather":[...]
 "speed":1.268
 "deg":298
 "clouds":0
 }
-2:{10 items
+2:{10
 "dt":1570431600
 "sunrise":1570457420
 "sunset":1570499066
-"temp":{...}6 items
+"temp":{...}6
 "pressure":1016
 "humidity":53
-"weather":[...]1 item
+"weather":[...]
 "speed":0.907
 "deg":316
 "clouds":24
 }
-3:{10 items
+3:{
 "dt":1570518000
 "sunrise":1570543874
 "sunset":1570585377
-"temp":{...}6 items
+"temp":{...}
 "pressure":1012
 "humidity":52
-"weather":[...]1 item
+"weather":[...]
 "speed":1.833
 "deg":207
 "clouds":68
 }
-4:{10 items
+4:{
 "dt":1570604400
 "sunrise":1570630329
 "sunset":1570671688
-"temp":{...}6 items
+"temp":{...}
 "pressure":1010
 "humidity":80
-"weather":[...]1 item
+"weather":[...]
 "speed":2.444
 "deg":221
 "clouds":6
 }
-5:{10 items
+5:{
 "dt":1570690800
 "sunrise":1570716784
 "sunset":1570758000
-"temp":{...}6 items
+"temp":{...}
 "pressure":1011
 "humidity":68
-"weather":[...]1 item
+"weather":[...]
 "speed":1.429
 "deg":194
 "clouds":0
 }
-6:{10 items
+6:{
 "dt":1570777200
 "sunrise":1570803239
 "sunset":1570844313
-"temp":{...}6 items
+"temp":{...}
 "pressure":1014
 "humidity":64
 "weather":[...]1 item
@@ -152,11 +153,11 @@ test({"coord":{"lon":-0.13,"lat":51.51},"weather":[{"id":741,"main":"Fog","descr
 "deg":236
 "clouds":55
 }
-7:{10 items
+7:{
 "dt":1570863600
 "sunrise":1570889695
 "sunset":1570930626
-"temp":{...}6 items
+"temp":{...}
 "pressure":1013
 "humidity":69
 "weather":[...]1 item

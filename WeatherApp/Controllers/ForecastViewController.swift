@@ -45,7 +45,7 @@ class ForecastViewController: UIViewController,CLLocationManagerDelegate{
             currentLocation = locations.first
             locationManager.stopUpdatingLocation()
             requestWeatherForLocation()
-            
+
             }
     }
     
@@ -94,12 +94,12 @@ class ForecastViewController: UIViewController,CLLocationManagerDelegate{
                 DispatchQueue.main.async {
                     
                     self.forecastData = response
-                    print("response is \(response)")
+                   // print("response is \(response)")
                     
-                    self.latlabel.text = "\(self.forecastData?.city ?? "")"
-                    self.lonLabel.text = "\(self.forecastData?.base ?? "")"
+                   // self.lonLabel.text = "\(self.Welcome?.base ?? "")"
+                    //self.lonLabel.text = "\(self.forecastData?.base ?? "")"
+                    print(response.base)
                 }
-                
             }
             catch {
                 
@@ -107,12 +107,10 @@ class ForecastViewController: UIViewController,CLLocationManagerDelegate{
             }
             print("data is",data)
            // print("response is",response)
-           // print("error is \(error)")
             print("error is",error)
         })
        task.resume()
     
     
     }
-
 }
