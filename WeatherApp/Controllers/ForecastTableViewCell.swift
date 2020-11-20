@@ -9,10 +9,6 @@
 import UIKit
 
 class ForecastTableViewCell: UITableViewCell {
-
-   // @IBOutlet weak var latLable: UILabel!
-  //  @IBOutlet weak var lonLable: UILabel!
-    
     
   /*  override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,6 +20,7 @@ class ForecastTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }*/
+    
    
     
 }

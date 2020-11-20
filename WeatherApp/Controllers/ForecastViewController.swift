@@ -7,29 +7,57 @@
 //
 
 import UIKit
+import CoreLocation
 
-class ForecastViewController: UIViewController {
-    
+class ForecastViewController: UIViewController,CLLocationManagerDelegate{
     
     var forecastData : ForecastData?
-
     
     @IBOutlet weak var latlabel: UILabel!
     @IBOutlet weak var lonLabel: UILabel!
     
+    let locationManager = CLLocationManager()
+    var currentLocation: CLLocation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
          print("hello")
         
-        gettingData()
+        setupLocation()
+      //  gettingData()
 
         // Do any additional setup after loading the view.
 }
    
     
-    func gettingData(){
+    func setupLocation() {
+        
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+    
+    }
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        if !locations.isEmpty, currentLocation == nil{
+            
+            currentLocation = locations.first
+            locationManager.stopUpdatingLocation()
+            requestWeatherForLocation()
+            
+            }
+    }
+    
+    func requestWeatherForLocation()
+    {
+        let long = currentLocation?.coordinate.longitude
+        let lat = currentLocation?.coordinate.latitude
+        print(long)
+        print(lat)
+    
+    
+    //func gettingData(){
         
         
         let session = URLSession.shared
@@ -37,16 +65,14 @@ class ForecastViewController: UIViewController {
         //let validUrlString = urlString.hasPrefix("http") ? urlString : "http://(urlString)"
         //print("validurl is \(validUrlString)")
         
-        let url = URL(string:"https://dark-sky.p.rapidapi.com")!
+        let url = URL(string:"https://community-open-weather-map.p.rapidapi.com/weather?q=Chicago%2Cuk&lat=0&lon=\(long)&callback=test&id=2172797&lang=\(lat)&units=%22metric%22%20or%20%22imperial%22&mode=xml%2C%20html")!
         //var request = URLRequest(url: url)
         var request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval:10.0 )
         let headers = ["x-rapidapi-key": "d1ba0406c0msh795d9cc32acd6fcp15b82djsn91be053bbf3d",
-        "x-rapidapi-host": "dark-sky.p.rapidapi.com"]
+            "x-rapidapi-host": "community-open-weather-map.p.rapidapi.com"]
         request.httpMethod = "GET"
         request.allHTTPHeaderFields = headers
-        
-        //request.addValue("Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdXJ5YUBvbW5pd3lzZS5jb20iLCJzY29wZXMiOiJST0xFX0VNUExPWUVFX1MiLCJ0ZW5hbnROYW1lIjoib21uaXd5c2UiLCJ0ZW5hbnRJZCI6NzAwLCJpYXQiOjE1ODQ0NTAwMzgsImV4cCI6MTU4NDUzNjQzOCwiZW1wbG95ZWVJZCI6IjIwMTc3MDA0MyIsImVtYWlsIjoic3VyeWFAb21uaXd5c2UuY29tIiwicmVwb3J0ZXJJZCI6IjIwMTY3MDAwNyJ9.AS3M6J6dvieJWOVRPDPszV2vxrt3IPhT5Ulp_P67q1E", forHTTPHeaderField: "Authorization")
-        
+           
         let task = session.dataTask(with: request as URLRequest,completionHandler: { data, response, error in
             
             print("task is completed")
@@ -70,8 +96,8 @@ class ForecastViewController: UIViewController {
                     self.forecastData = response
                     print("response is \(response)")
                     
-                    self.latlabel.text = "\(self.forecastData?.lat ?? 0)"
-                    self.lonLabel.text = "\(self.forecastData?.lon ?? 0)"
+                    self.latlabel.text = "\(self.forecastData?.city ?? "")"
+                    self.lonLabel.text = "\(self.forecastData?.base ?? "")"
                 }
                 
             }
@@ -80,16 +106,13 @@ class ForecastViewController: UIViewController {
                 print("error")
             }
             print("data is",data)
-            print("response is",response)
+           // print("response is",response)
            // print("error is \(error)")
             print("error is",error)
         })
        task.resume()
-        
-        
-        
+    
+    
     }
-    
-    
 
 }
