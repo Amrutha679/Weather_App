@@ -10,6 +10,6 @@ import Foundation
 
 struct ForecastData: Decodable {
     
-    let dt : Int?
-    let name : String?
+    let lat : Double?
+    let lon : Double?
 }
