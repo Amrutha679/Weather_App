@@ -10,15 +10,24 @@ import UIKit
 import CoreLocation
 
 class ViewController: UIViewController,CLLocationManagerDelegate{
-     var forecastData : ForecastData?
+    
+    
+    @IBOutlet weak var cityName: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var icon: UIImageView!
+    @IBOutlet weak var tempLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    
+    var forecastData : ForecastData?
+    
      let locationManager = CLLocationManager()
-        var currentLocation: CLLocation?
-        var coordinates : CLLocation?
+     var currentLocation: CLLocation?
+     var coordinates : CLLocation?
         
         override func viewDidLoad() {
             super.viewDidLoad()
             
-             print("hello")
+             //print("hello")
             
             setupLocation()
             requestWeatherForLocation()
@@ -75,10 +84,10 @@ class ViewController: UIViewController,CLLocationManagerDelegate{
                             
                             self.forecastData = response
                            // print(self.forecastData?.base)
-                            print(self.forecastData?.name)
-                            print(self.forecastData?.dt)
-                            print(self.forecastData?.main.temp)
-                            print(self.forecastData?.weather.description)
+                            self.cityName.text = self.forecastData?.name
+                            //self.dateLabel.text = self.forecastData?.dt
+                           // self.tempLabel.text = self.forecastData?.main.temp ? 0
+                          //  self.descriptionLabel.text  = self.forecastData?.Weather.description
                             
                             
                         }

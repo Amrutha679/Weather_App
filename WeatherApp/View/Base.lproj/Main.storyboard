@@ -69,6 +69,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="cityName" destination="nDW-hd-WaH" id="ovA-Zq-jVU"/>
+                        <outlet property="dateLabel" destination="rL9-vU-uDy" id="CXQ-du-pDA"/>
+                        <outlet property="descriptionLabel" destination="pNk-28-4EI" id="sQf-Vx-tcN"/>
+                        <outlet property="icon" destination="Wl6-mg-9Ht" id="C6L-dq-eca"/>
+                        <outlet property="tempLabel" destination="6oB-c0-s5k" id="NlM-kN-bBE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
