@@ -9,22 +9,11 @@
 import Foundation
 
 struct ForecastData: Codable {
-    let coord: Coord
-    let weather: [Weather]
-    let base: String
-    let main: Main
-    let visibility: Int
-    let wind: Wind
-    let clouds: Clouds
-    let dt: Int
-    let sys: Sys
-    let timezone, id: Int
-    let name: String
-    let cod: Int
+    let base :String?
 }
 
 // MARK: - Clouds
-struct Clouds: Codable {
+/*struct Clouds: Codable {
     let all: Int
 }
 
@@ -39,7 +28,7 @@ struct Main: Codable {
     let pressure, humidity: Int
 
     enum CodingKeys: String, CodingKey {
-        case temp
+        case temp 
         case feelsLike = "feels_like"
         case tempMin = "temp_min"
         case tempMax = "temp_max"
@@ -70,8 +59,7 @@ struct Weather: Codable {
 struct Wind: Codable {
     let speed: Double
     let deg: Int
-}
-
+}*/
 
 
 

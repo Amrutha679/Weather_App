@@ -18,6 +18,7 @@ class ForecastViewController: UIViewController,CLLocationManagerDelegate{
     
     let locationManager = CLLocationManager()
     var currentLocation: CLLocation?
+    var coordinates : CLLocation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +26,7 @@ class ForecastViewController: UIViewController,CLLocationManagerDelegate{
          print("hello")
         
         setupLocation()
+        requestWeatherForLocation()
       //  gettingData()
 
         // Do any additional setup after loading the view.
@@ -44,7 +46,7 @@ class ForecastViewController: UIViewController,CLLocationManagerDelegate{
             
             currentLocation = locations.first
             locationManager.stopUpdatingLocation()
-            requestWeatherForLocation()
+            
 
             }
     }
@@ -53,64 +55,43 @@ class ForecastViewController: UIViewController,CLLocationManagerDelegate{
     {
         let long = currentLocation?.coordinate.longitude
         let lat = currentLocation?.coordinate.latitude
+       // let name = currentLocation?.copy(with NSSetZoneName:String )
         print(long)
         print(lat)
+        let name : String = "Chicago"
     
-    
-    //func gettingData(){
-        
-        
-        let session = URLSession.shared
-       // let urlString = "api.openweathermap.org/data/2.5/weather?q=Chicago&appid=1c2f47340db7f7b1539792594a950c6e"
-        //let validUrlString = urlString.hasPrefix("http") ? urlString : "http://(urlString)"
-        //print("validurl is \(validUrlString)")
-        
-        let url = URL(string:"https://community-open-weather-map.p.rapidapi.com/weather?q=Chicago%2Cuk&lat=0&lon=\(long)&callback=test&id=2172797&lang=\(lat)&units=%22metric%22%20or%20%22imperial%22&mode=xml%2C%20html")!
-        //var request = URLRequest(url: url)
-        var request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval:10.0 )
-        let headers = ["x-rapidapi-key": "d1ba0406c0msh795d9cc32acd6fcp15b82djsn91be053bbf3d",
-            "x-rapidapi-host": "community-open-weather-map.p.rapidapi.com"]
+        var semaphore = DispatchSemaphore (value: 0)
+
+        var request = URLRequest(url: URL(string: "https://api.openweathermap.org/data/2.5/weather?q=London&appid=476e970d980b944a09b51d1fa68c9adb")!,timeoutInterval: Double.infinity)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
         request.httpMethod = "GET"
-        request.allHTTPHeaderFields = headers
-           
-        let task = session.dataTask(with: request as URLRequest,completionHandler: { data, response, error in
-            
-            print("task is completed")
-            
-            guard error == nil else {
-                
-                return
-            }
-            guard let data = data else {
-                
-                return
-            }
+
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+          guard let data = data else {
+            print(String(describing: error))
+            return
+          }
+          print(String(data: data, encoding: .utf8)!)
+          semaphore.signal()
             do{
                 let decoder = JSONDecoder()
-                let response = try decoder.decode(ForecastData.self, from: data)
-                //let jsonResult = try JSONSerialization.jsonObject(with: data) as? [String: Any]
-                //if let results = jsonResult["results"] as? [Any]{
-          
-                DispatchQueue.main.async {
-                    
-                    self.forecastData = response
-                   // print("response is \(response)")
-                    
-                   // self.lonLabel.text = "\(self.Welcome?.base ?? "")"
-                    //self.lonLabel.text = "\(self.forecastData?.base ?? "")"
-                    print(response.base)
+                    let response = try decoder.decode(ForecastData.self, from: data)
+                    DispatchQueue.main.async {
+                        
+                        self.forecastData = response
+                        print(self.forecastData?.base)
+                        
+                        
+                    }
                 }
+                catch {
+                    print(error)
             }
-            catch {
-                
-                print("error")
-            }
-            print("data is",data)
-           // print("response is",response)
-            print("error is",error)
-        })
-       task.resume()
-    
-    
+        }
+        task.resume()
+        semaphore.wait()
+        
+
     }
 }
