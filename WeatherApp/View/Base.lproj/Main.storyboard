@@ -19,8 +19,8 @@
                                 <rect key="frame" x="0.0" y="101" width="414" height="114.66666666666669"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="City Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nDW-hd-WaH">
-                                        <rect key="frame" x="0.0" y="8" width="157" height="57"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                        <rect key="frame" x="0.0" y="8" width="200.5" height="57"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="45"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -31,17 +31,14 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wl6-mg-9Ht">
-                                        <rect key="frame" x="281" y="24" width="115" height="70"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wl6-mg-9Ht">
+                                        <rect key="frame" x="274" y="8" width="122" height="116"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.61677400976951213" green="0.59988669350653046" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="Wl6-mg-9Ht" firstAttribute="top" secondItem="dRq-sC-Wxy" secondAttribute="top" constant="24" id="DvI-BO-cRB"/>
                                     <constraint firstItem="nDW-hd-WaH" firstAttribute="leading" secondItem="dRq-sC-Wxy" secondAttribute="leading" id="Rkf-x1-872"/>
-                                    <constraint firstAttribute="bottom" secondItem="Wl6-mg-9Ht" secondAttribute="bottom" constant="20.670000000000002" id="VHT-w7-4XV"/>
-                                    <constraint firstItem="Wl6-mg-9Ht" firstAttribute="leading" secondItem="nDW-hd-WaH" secondAttribute="trailing" constant="124" id="eRZ-Pl-0UY"/>
-                                    <constraint firstAttribute="trailing" secondItem="Wl6-mg-9Ht" secondAttribute="trailing" constant="18" id="i1j-Bb-GBx"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="43" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6oB-c0-s5k">
@@ -70,8 +67,8 @@
                     <connections>
                         <outlet property="cityName" destination="nDW-hd-WaH" id="ovA-Zq-jVU"/>
                         <outlet property="dateLabel" destination="rL9-vU-uDy" id="CXQ-du-pDA"/>
-                        <outlet property="summeryIcon" destination="Wl6-mg-9Ht" id="Xkm-rK-R5c"/>
-                        <outlet property="summeryLabel" destination="pNk-28-4EI" id="zMx-6Z-qkh"/>
+                        <outlet property="summaryIcon" destination="Wl6-mg-9Ht" id="XzU-r2-eju"/>
+                        <outlet property="summaryLabel" destination="pNk-28-4EI" id="qtu-08-fno"/>
                         <outlet property="tempLabel" destination="6oB-c0-s5k" id="NlM-kN-bBE"/>
                     </connections>
                 </viewController>

@@ -15,11 +15,12 @@ class ViewController: UIViewController,CLLocationManagerDelegate{
     @IBOutlet weak var dateLabel: UILabel!
    // @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var tempLabel: UILabel!
-    @IBOutlet weak var summeryLabel: UILabel!
-    @IBOutlet weak var summeryIcon: UIImageView!
+    @IBOutlet weak var summaryLabel: UILabel!
+    @IBOutlet weak var summaryIcon: UIImageView!
     
     var forecastData : ForecastData?
    // var main : Main?
+    var img : String?
     
      let locationManager = CLLocationManager()
      var currentLocation: CLLocation?
@@ -56,7 +57,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate{
             let lat = currentLocation?.coordinate.latitude
         
             var semaphore = DispatchSemaphore (value: 0)
-            var request = URLRequest(url: URL(string: "https://api.openweathermap.org/data/2.5/weather?q=Hyderabad&appid=476e970d980b944a09b51d1fa68c9adb")!,timeoutInterval: Double.infinity)
+            var request = URLRequest(url: URL(string: "https://api.openweathermap.org/data/2.5/weather?q=Jaipur&appid=476e970d980b944a09b51d1fa68c9adb")!,timeoutInterval: Double.infinity)
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 
             request.httpMethod = "GET"
@@ -79,8 +80,29 @@ class ViewController: UIViewController,CLLocationManagerDelegate{
                             self.cityName.text = self.forecastData?.name
                             self.dateLabel.text = self.getDate(Date(timeIntervalSince1970: Double(self.forecastData?.dt ?? 0)) )
                             self.tempLabel.text = "\(Int(self.forecastData?.main.temp ?? 0)-273)°c"
-                            self.summeryLabel.text  = "\(self.forecastData?.weather[0].weatherDescription ?? "")"
-                            self.summeryIcon.image = UIImage(named:"\(self.forecastData?.weather[0].icon ?? "")")
+                            self.summaryLabel.text  = "\(self.forecastData?.weather[0].weatherDescription ?? "")"
+                            
+                            self.img = "\(self.forecastData?.weather[0].main ?? "")"
+                            
+                            switch (self.img) {
+                            case "Clouds":
+                                self.summaryIcon.image = UIImage(named:"cloud")
+                                
+                            case "Haze":
+                                
+                                self.summaryIcon.image = UIImage(named:"haze")
+                            case "Sun":
+                                 self.summaryIcon.image = UIImage(named:"sun")
+                                
+                            case .none:
+                                
+                                print("hh")
+                            case .some(_):
+                                
+                                print("")
+                           
+                            }
+                                                                        
                             //print("\(self.forecastData?.dt ?? 0)")
                             //print( "\(self.forecastData?.main.temp ?? 0)")
                            // print("Weather is \(self.forecastData?.weather. ?? 0 )")
