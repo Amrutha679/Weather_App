@@ -11,60 +11,51 @@ import CoreLocation
 
 class ViewController: UIViewController,CLLocationManagerDelegate{
     
-    
     @IBOutlet weak var cityName: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var icon: UIImageView!
+   // @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var tempLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var summeryLabel: UILabel!
+    @IBOutlet weak var summeryIcon: UIImageView!
     
     var forecastData : ForecastData?
+   // var main : Main?
     
      let locationManager = CLLocationManager()
      var currentLocation: CLLocation?
      var coordinates : CLLocation?
         
-        override func viewDidLoad() {
+    override func viewDidLoad() {
             super.viewDidLoad()
             
-             //print("hello")
             
             setupLocation()
-            requestWeatherForLocation()
-          //  gettingData()
-
-            // Do any additional setup after loading the view.
-    }
+            requestWeatherForLocation() }
        
         
-        func setupLocation() {
+    func setupLocation() {
             
             locationManager.delegate = self
             locationManager.requestWhenInUseAuthorization()
             locationManager.startUpdatingLocation()
-        
         }
-        func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
             
             if !locations.isEmpty, currentLocation == nil{
                 
                 currentLocation = locations.first
                 locationManager.stopUpdatingLocation()
                 
-
                 }
         }
-      func requestWeatherForLocation()
-        {
+    
+    func requestWeatherForLocation() {
+        
             let long = currentLocation?.coordinate.longitude
             let lat = currentLocation?.coordinate.latitude
-           // let name = currentLocation?.copy(with NSSetZoneName:String )
-            print(long)
-            print(lat)
-            let name : String = "Chicago"
         
             var semaphore = DispatchSemaphore (value: 0)
-
             var request = URLRequest(url: URL(string: "https://api.openweathermap.org/data/2.5/weather?q=London&appid=476e970d980b944a09b51d1fa68c9adb")!,timeoutInterval: Double.infinity)
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 
@@ -85,10 +76,14 @@ class ViewController: UIViewController,CLLocationManagerDelegate{
                             self.forecastData = response
                            // print(self.forecastData?.base)
                             self.cityName.text = self.forecastData?.name
-                            //self.dateLabel.text = self.forecastData?.dt
-                           // self.tempLabel.text = self.forecastData?.main.temp ? 0
-                          //  self.descriptionLabel.text  = self.forecastData?.Weather.description
-                            
+                            self.dateLabel.text = "\(self.forecastData?.dt ?? 0)"
+                            self.tempLabel.text = "\(self.forecastData?.main.temp ?? 0)"
+                            self.summeryLabel.text  = "\(self.forecastData?.weather[0].weatherDescription ?? "")"
+                         //   self.summeryIcon.animationImages =
+                            //print("\(self.forecastData?.dt ?? 0)")
+                            //print( "\(self.forecastData?.main.temp ?? 0)")
+                           // print("Weather is \(self.forecastData?.weather. ?? 0 )")
+                           // print("main is \(self.forecastData?.main)")
                             
                         }
                     }
