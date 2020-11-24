@@ -65,7 +65,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate{
               guard let data = data else {
                 print(String(describing: error))
                 return
-              }
+                }
+               
               print(String(data: data, encoding: .utf8)!)
               semaphore.signal()
                 do{
@@ -76,26 +77,40 @@ class ViewController: UIViewController,CLLocationManagerDelegate{
                             self.forecastData = response
                            // print(self.forecastData?.base)
                             self.cityName.text = self.forecastData?.name
-                            self.dateLabel.text = "\(self.forecastData?.dt ?? 0)"
+                            self.dateLabel.text = self.getDate(Date(timeIntervalSince1970: Double(self.forecastData?.dt ?? 0)) )
                             self.tempLabel.text = "\(self.forecastData?.main.temp ?? 0)"
                             self.summeryLabel.text  = "\(self.forecastData?.weather[0].weatherDescription ?? "")"
-                         //   self.summeryIcon.animationImages =
+                           // self.summeryIcon.image = UIImage(named:"\(self.forecastData?.weather[0].icon ?? "")")
                             //print("\(self.forecastData?.dt ?? 0)")
                             //print( "\(self.forecastData?.main.temp ?? 0)")
                            // print("Weather is \(self.forecastData?.weather. ?? 0 )")
                            // print("main is \(self.forecastData?.main)")
+                            print("\(self.forecastData?.weather[0].icon ?? "")")
                             
                         }
+                       
                     }
                     catch {
                         print(error)
                 }
+               
+                
             }
             task.resume()
             semaphore.wait()
             
 
         }
+          
+    func getDate(_ date:Date?) -> String{
+        
+        guard let inputDate = date else {
+            return ""
+        }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM d, yyyy"
+        return formatter.string(from: inputDate)
+    }
     }
 
 
