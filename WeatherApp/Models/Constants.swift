@@ -9,7 +9,7 @@
 import Foundation
 struct Constants
 {
-    let url = "https://api.openweathermap.org/data/2.5/weather?q=Hyderabad&appid=476e970d980b944a09b51d1fa68c9adb"
+    //let url = 
     let get = "GET"
     let value = "application/json"
     let httpField = "Content-Type"
