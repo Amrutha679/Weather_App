@@ -9,22 +9,21 @@
 import UIKit
 import CoreLocation
 
-class ViewController: UIViewController,CLLocationManagerDelegate{
+class ViewController: UIViewController,CLLocationManagerDelegate {
     
     @IBOutlet weak var cityName: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-   // @IBOutlet weak var icon: UIImageView!
     @IBOutlet weak var tempLabel: UILabel!
     @IBOutlet weak var summaryLabel: UILabel!
     @IBOutlet weak var summaryIcon: UIImageView!
     
-    var forecastData : ForecastData?
-   // var main : Main?
+    var weatherData : WeatherData?
+    var C = Constants()
     var img : String?
     
-     let locationManager = CLLocationManager()
-     var currentLocation: CLLocation?
-     var coordinates : CLLocation?
+    let locationManager = CLLocationManager()
+    var currentLocation: CLLocation?
+    var coordinates : CLLocation?
         
     override func viewDidLoad() {
             super.viewDidLoad()
@@ -53,14 +52,11 @@ class ViewController: UIViewController,CLLocationManagerDelegate{
     
     func requestWeatherForLocation() {
         
-            let long = currentLocation?.coordinate.longitude
-            let lat = currentLocation?.coordinate.latitude
-        
             var semaphore = DispatchSemaphore (value: 0)
-            var request = URLRequest(url: URL(string: "https://api.openweathermap.org/data/2.5/weather?q=Jaipur&appid=476e970d980b944a09b51d1fa68c9adb")!,timeoutInterval: Double.infinity)
-            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        var request = URLRequest(url: URL(string: C.url)!,timeoutInterval: Double.infinity)
+        request.addValue(C.value, forHTTPHeaderField:C.httpField )
 
-            request.httpMethod = "GET"
+        request.httpMethod = C.get
 
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
               guard let data = data else {
@@ -72,27 +68,27 @@ class ViewController: UIViewController,CLLocationManagerDelegate{
               semaphore.signal()
                 do{
                     let decoder = JSONDecoder()
-                        let response = try decoder.decode(ForecastData.self, from: data)
+                        let response = try decoder.decode(WeatherData.self, from: data)
                         DispatchQueue.main.async {
                             
-                            self.forecastData = response
+                            self.weatherData = response
                            // print(self.forecastData?.base)
-                            self.cityName.text = self.forecastData?.name
-                            self.dateLabel.text = self.getDate(Date(timeIntervalSince1970: Double(self.forecastData?.dt ?? 0)) )
-                            self.tempLabel.text = "\(Int(self.forecastData?.main.temp ?? 0)-273)°c"
-                            self.summaryLabel.text  = "\(self.forecastData?.weather[0].weatherDescription ?? "")"
+                            self.cityName.text = self.weatherData?.name
+                            self.dateLabel.text = self.getDate(Date(timeIntervalSince1970: Double(self.weatherData?.dt ?? 0)) )
+                            self.tempLabel.text = "\(Int(self.weatherData?.main.temp ?? 0)-273)°c"
+                            self.summaryLabel.text  = "\(self.weatherData?.weather[0].weatherDescription ?? "")"
                             
-                            self.img = "\(self.forecastData?.weather[0].main ?? "")"
+                            self.img = "\(self.weatherData?.weather[0].main ?? "")"
                             
                             switch (self.img) {
-                            case "Clouds":
-                                self.summaryIcon.image = UIImage(named:"cloud")
+                            case self.C.clouds:
+                                self.summaryIcon.image = UIImage(named:self.C.cloudicon)
                                 
-                            case "Haze":
+                            case self.C.haze:
                                 
-                                self.summaryIcon.image = UIImage(named:"haze")
-                            case "Sun":
-                                 self.summaryIcon.image = UIImage(named:"sun")
+                                self.summaryIcon.image = UIImage(named:self.C.hazeicon)
+                            case self.C.sun:
+                                self.summaryIcon.image = UIImage(named:self.C.sunicon)
                                 
                             case .none:
                                 
@@ -102,12 +98,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate{
                                 print("")
                            
                             }
-                                                                        
-                            //print("\(self.forecastData?.dt ?? 0)")
-                            //print( "\(self.forecastData?.main.temp ?? 0)")
-                           // print("Weather is \(self.forecastData?.weather. ?? 0 )")
-                           // print("main is \(self.forecastData?.main)")
-                            print("\(self.forecastData?.weather[0].icon ?? "")")
                             
                         }
                        
@@ -133,7 +123,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate{
         formatter.dateFormat = "MMM d, yyyy"
         return formatter.string(from: inputDate)
     }
-    }
+}
 
 
 
