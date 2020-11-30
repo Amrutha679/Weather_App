@@ -8,12 +8,15 @@
 
 import UIKit
 
-class ViewController : UIViewController{
-    
+class ViewController : UIViewController {
     @IBOutlet weak var cityName: UITextField!
+    let email:String? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if email != nil{
+            print(email!)
+        }
         
     }
     
@@ -24,7 +27,7 @@ class ViewController : UIViewController{
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "goToWeatherVC"{
+        if segue.identifier == "goToWeatherVC" {
             
             let vc = segue.destination as! WeatherViewController
             vc.city = cityName.text!

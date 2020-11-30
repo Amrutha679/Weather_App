@@ -7,9 +7,7 @@
 //
 
 import Foundation
-struct Constants
-{
-    //let url = 
+struct Constants {
     let get = "GET"
     let value = "application/json"
     let httpField = "Content-Type"
@@ -19,4 +17,12 @@ struct Constants
     let hazeicon = "haze"
     let sun = "Sun"
     let sunicon = "sun"
+    let mist = "Mist"
+    let misticon = "mist"
+    let rain = "Rain"
+    let rainicon = "rain-icon"
+    let clear = "Clear"
+    let clearsky = "clear"
+    let smoke = "Smoke"
+    let smokeicon = "smoke"
 }
