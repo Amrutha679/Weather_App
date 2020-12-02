@@ -21,10 +21,9 @@ class WeatherViewController: UIViewController,CLLocationManagerDelegate {
     @IBOutlet weak var tempMaxLabel: UILabel!
     @IBOutlet weak var tempMinLabel: UILabel!
     
-    var city : String = ""
-    var img : String?
+   public var city : String = ""
+   public var img : String?
     var weatherData : WeatherData?
-    var C = Constants()
     let locationManager = CLLocationManager()
     var currentLocation: CLLocation?
     
@@ -53,85 +52,81 @@ class WeatherViewController: UIViewController,CLLocationManagerDelegate {
     
     func requestWeatherForLocation() {
         
-        var semaphore = DispatchSemaphore (value: 0)
         var request = URLRequest(url: URL(string: "https://api.openweathermap.org/data/2.5/weather?q=\(city)&appid=476e970d980b944a09b51d1fa68c9adb")!,timeoutInterval: Double.infinity)
-        request.addValue(C.value, forHTTPHeaderField:C.httpField )
-        request.httpMethod = C.get
+        request.addValue(Constants.value, forHTTPHeaderField:Constants.httpField )
+        request.httpMethod = Constants.get
 
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else {
                 print(String(describing: error))
                 return
             }
-            
-            //print(String(data: data, encoding: .utf8)!)
-            semaphore.signal()
+
             do{
                 let decoder = JSONDecoder()
                 let response = try decoder.decode(WeatherData.self, from: data)
                 DispatchQueue.main.async {
                     
                     self.weatherData = response
-                    // print(self.forecastData?.base)
-                    self.cityName.text = self.weatherData?.name
-                    self.humidity.text = "\(Int(self.weatherData?.main.humidity ?? 0))%"
-                    self.pressure.text = "\(Int(self.weatherData?.main.pressure ?? 0))hPa"
-                    self.dateLabel.text = self.getDate(Date(timeIntervalSince1970: Double(self.weatherData?.dt ?? 0)) )
-                    self.tempLabel.text = "\(Int(self.weatherData?.main.temp ?? 0)-273)°c"
-                    self.tempMaxLabel.text = "\(Int(self.weatherData?.main.tempMax ?? 0)-273)°c"
-                    self.tempMinLabel.text = "\(Int(self.weatherData?.main.tempMin ?? 0)-273)°c"
-                    self.summaryLabel.text  = "\(self.weatherData?.weather[0].weatherDescription ?? "")"
-                    self.img = "\(self.weatherData?.weather[0].main ?? "")"
-                    
-                    switch (self.img) {
-                        
-                    case self.C.clouds:
-                        self.summaryIcon.image = UIImage(named:self.C.cloudicon)
-                    case self.C.haze:
-                        self.summaryIcon.image = UIImage(named:self.C.hazeicon)
-                    case self.C.sun:
-                        self.summaryIcon.image = UIImage(named:self.C.sunicon)
-                    case self.C.mist:
-                        self.summaryIcon.image = UIImage(named:self.C.misticon)
-                    case self.C.rain:
-                        self.summaryIcon.image = UIImage(named:self.C.rainicon)
-                    case self.C.clear:
-                        self.summaryIcon.image = UIImage(named:self.C.clearsky)
-                    case self.C.smoke:
-                        self.summaryIcon.image = UIImage(named:self.C.smokeicon)
-                    case .none:
-                        print("hh")
-                    case .some(_):
-                        
-                        print("")
-                        
-                    }
+                    self.jsonData()
                     
                 }
                 
             }
             catch {
-                print(error)
+                print(error.localizedDescription)
             }
             
             
         }
         task.resume()
-        semaphore.wait()
-        
         
     }
-    
-    func getDate(_ date:Date?) -> String{
+    func jsonData() {
+        self.cityName.text = self.weatherData?.name
+        self.humidity.text = "\(Int(self.weatherData?.main.humidity ?? 0))%"
+        self.pressure.text = "\(Int(self.weatherData?.main.pressure ?? 0))hPa"
+        self.dateLabel.text = getDate(Date(timeIntervalSince1970: Double(self.weatherData?.dt ?? 0)) )
+        self.tempLabel.text = "\(Int(self.weatherData?.main.temp ?? 0)-273)°c"
+        self.tempMaxLabel.text = "\(Int(self.weatherData?.main.tempMax ?? 0)-273)°c"
+        self.tempMinLabel.text = "\(Int(self.weatherData?.main.tempMin ?? 0)-273)°c"
+        self.summaryLabel.text  = "\(self.weatherData?.weather[0].weatherDescription ?? "")"
+        self.img = "\(self.weatherData?.weather[0].main ?? "")"
         
-        guard let inputDate = date else {
-            return ""
+        switch (self.img) {
+            
+        case Constants.clouds:
+            self.summaryIcon.image = UIImage(named:Constants.cloudicon)
+        case Constants.haze:
+            self.summaryIcon.image = UIImage(named:Constants.hazeicon)
+        case Constants.sun:
+            self.summaryIcon.image = UIImage(named:Constants.sunicon)
+        case Constants.mist:
+            self.summaryIcon.image = UIImage(named:Constants.misticon)
+        case Constants.rain:
+            self.summaryIcon.image = UIImage(named:Constants.rainicon)
+        case Constants.clear:
+            self.summaryIcon.image = UIImage(named:Constants.clearsky)
+        case Constants.smoke:
+            self.summaryIcon.image = UIImage(named:Constants.smokeicon)
+        case .none:
+            self.summaryIcon.image = UIImage(named:Constants.smokeicon)
+        case .some(_):
+            self.summaryIcon.image = UIImage(named:Constants.smokeicon)
+            
+            
         }
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMM d, yyyy"
-        return formatter.string(from: inputDate)
+        
     }
-    
-    
     
 }
+public func getDate(_ date:Date?) -> String {
+    
+    guard let inputDate = date else {
+        return ""
+    }
+    let formatter = DateFormatter()
+    formatter.dateFormat = "MMM d, yyyy"
+    return formatter.string(from: inputDate)
+}
+

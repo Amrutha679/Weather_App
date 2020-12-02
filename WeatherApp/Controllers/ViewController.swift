@@ -9,16 +9,8 @@
 import UIKit
 
 class ViewController : UIViewController {
-    @IBOutlet weak var cityName: UITextField!
-    let email:String? = nil
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        if email != nil{
-            print(email!)
-        }
-        
-    }
+    @IBOutlet weak var cityName: UITextField!
     
     @IBAction func submitButton(_ sender: UIButton) {
         
