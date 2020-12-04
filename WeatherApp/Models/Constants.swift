@@ -8,12 +8,7 @@
 
 import Foundation
 struct Constants {
-    static let city : String = ""
-    init(city : String)
-    {
-        let url = "https://api.openweathermap.org/data/2.5/weather?q=\(Constants.self.city)&appid=476e970d980b944a09b51d1fa68c9adb"
-    }
-   
+    
    static let get = "GET"
    static let value = "application/json"
    static let httpField = "Content-Type"
