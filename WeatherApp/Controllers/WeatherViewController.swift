@@ -21,8 +21,8 @@ class WeatherViewController: UIViewController,CLLocationManagerDelegate {
     @IBOutlet weak var tempMaxLabel: UILabel!
     @IBOutlet weak var tempMinLabel: UILabel!
     
-   public var city : String = ""
-   public var img : String?
+    public var city : String = ""
+    public var img : String?
     var weatherData : WeatherData?
     let locationManager = CLLocationManager()
     var currentLocation: CLLocation?
@@ -31,7 +31,16 @@ class WeatherViewController: UIViewController,CLLocationManagerDelegate {
         super.viewDidLoad()
         
         setupLocation()
-        requestWeatherForLocation() }
+        requestWeatherForLocation()
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        
+        self.navigationController?.view.tintColor = UIColor.blue
+        let backButton = UIBarButtonItem()
+        backButton.title = ""
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
+    }
     
     func setupLocation() {
         
@@ -55,34 +64,31 @@ class WeatherViewController: UIViewController,CLLocationManagerDelegate {
         var request = URLRequest(url: URL(string: "https://api.openweathermap.org/data/2.5/weather?q=\(city)&appid=476e970d980b944a09b51d1fa68c9adb")!,timeoutInterval: Double.infinity)
         request.addValue(Constants.value, forHTTPHeaderField:Constants.httpField )
         request.httpMethod = Constants.get
-
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+        
+        let task = URLSession.shared.dataTask(with: request) { data, urlResponse, error in
             guard let data = data else {
                 print(String(describing: error))
                 return
             }
-
-            do{
+            
+            do {
                 let decoder = JSONDecoder()
-                let response = try decoder.decode(WeatherData.self, from: data)
+                let jsonResponse = try decoder.decode(WeatherData.self, from: data)
                 DispatchQueue.main.async {
                     
-                    self.weatherData = response
+                    self.weatherData = jsonResponse
                     self.jsonData()
-                    
                 }
-                
             }
             catch {
                 print(error.localizedDescription)
             }
-            
-            
         }
         task.resume()
         
     }
     func jsonData() {
+        
         self.cityName.text = self.weatherData?.name
         self.humidity.text = "\(Int(self.weatherData?.main.humidity ?? 0))%"
         self.pressure.text = "\(Int(self.weatherData?.main.pressure ?? 0))hPa"
