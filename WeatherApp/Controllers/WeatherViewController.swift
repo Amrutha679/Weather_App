@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 
-class WeatherViewController: UIViewController,CLLocationManagerDelegate {
+class WeatherViewController: UIViewController {
     
     @IBOutlet weak var cityName: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -21,9 +21,9 @@ class WeatherViewController: UIViewController,CLLocationManagerDelegate {
     @IBOutlet weak var tempMaxLabel: UILabel!
     @IBOutlet weak var tempMinLabel: UILabel!
     
-    public var city : String = ""
-    private var weatherSummary : String?
-    private var weatherData : WeatherData?
+    public var city: String = ""
+    private var weatherSummary: String?
+    private var weatherData: WeatherData?
     private let locationManager = CLLocationManager()
     private var currentLocation: CLLocation?
     
@@ -32,8 +32,8 @@ class WeatherViewController: UIViewController,CLLocationManagerDelegate {
         
         setupLocation()
         requestWeatherForLocation()
-        
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         
         self.navigationController?.view.tintColor = UIColor.blue
@@ -42,48 +42,36 @@ class WeatherViewController: UIViewController,CLLocationManagerDelegate {
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
     }
     
-   private func setupLocation() {
+    private func setupLocation() {
         
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
     }
     
-    internal func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    private func requestWeatherForLocation() {
         
-        if !locations.isEmpty, currentLocation == nil {
-            
-            currentLocation = locations.first
-            locationManager.stopUpdatingLocation()
-            
-        }
-    }
-    
-   private func requestWeatherForLocation() {
+        var request = URLRequest(url: URL(string: "https://api.openweathermap.org/data/2.5/weather?q=\(city)&appid=476e970d980b944a09b51d1fa68c9adb")!)
+        request.addValue(Constants.value, forHTTPHeaderField: Constants.httpField )
+        request.httpMethod = Constants.get
         
-    var request = URLRequest(url: URL(string: "https://api.openweathermap.org/data/2.5/weather?q=\(city)&appid=476e970d980b944a09b51d1fa68c9adb")!,timeoutInterval: Double.infinity)
-    request.addValue(Constants.value, forHTTPHeaderField:Constants.httpField )
-    request.httpMethod = Constants.get
-    
-    let task = URLSession.shared.dataTask(with: request) { data, urlResponse, error in
-        guard let data = data else {
-            return
-        }
-        
-        do {
-            let decoder = JSONDecoder()
-            let jsonResponse = try decoder.decode(WeatherData.self, from: data)
-            DispatchQueue.main.async {
+        let task = URLSession.shared.dataTask(with: request) { data, urlResponse, error in
+            guard let data = data else {
+                return
+            }
+            do {
                 
-                self.weatherData = jsonResponse
-                self.jsonData()
+                let jsonResponse = try JSONDecoder().decode(WeatherData.self, from: data)
+                DispatchQueue.main.async {
+                    self.weatherData = jsonResponse
+                    self.jsonData()
+                }
+            }
+            catch {
+                _ = error
             }
         }
-        catch {
-            _ = error
-        }
-    }
-    task.resume()
+        task.resume()
         
     }
     private func jsonData() {
@@ -122,6 +110,17 @@ class WeatherViewController: UIViewController,CLLocationManagerDelegate {
             
         }
         
+    }
+    
+}
+extension WeatherViewController:CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        if !locations.isEmpty, currentLocation == nil {
+            currentLocation = locations.first
+            locationManager.stopUpdatingLocation()
+        }
     }
     
 }

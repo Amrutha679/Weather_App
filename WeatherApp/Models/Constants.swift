@@ -9,6 +9,7 @@
 import Foundation
 struct Constants {
     
+   static let identifier = "goToWeatherVC"
    static let get = "GET"
    static let value = "application/json"
    static let httpField = "Content-Type"

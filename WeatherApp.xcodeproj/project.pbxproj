@@ -16,7 +16,7 @@
 		F061CFB42564E8AA00BCBCE2 /* sample.json in Resources */ = {isa = PBXBuildFile; fileRef = F061CFB32564E8AA00BCBCE2 /* sample.json */; };
 		F07DC21E256E39090098D90A /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07DC21D256E39090098D90A /* WeatherData.swift */; };
 		F07DC222256E39C70098D90A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07DC221256E39C70098D90A /* Constants.swift */; };
-		F07DC224256E57D00098D90A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07DC223256E57D00098D90A /* ViewController.swift */; };
+		F07DC224256E57D00098D90A /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07DC223256E57D00098D90A /* RootViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +31,7 @@
 		F061CFB32564E8AA00BCBCE2 /* sample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample.json; sourceTree = "<group>"; };
 		F07DC21D256E39090098D90A /* WeatherData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WeatherData.swift; path = WeatherApp/Model/WeatherData.swift; sourceTree = SOURCE_ROOT; };
 		F07DC221256E39C70098D90A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		F07DC223256E57D00098D90A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F07DC223256E57D00098D90A /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,7 +88,7 @@
 		F05C93362563F9C80078F7F3 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				F07DC223256E57D00098D90A /* ViewController.swift */,
+				F07DC223256E57D00098D90A /* RootViewController.swift */,
 				F05C931B2563F1A30078F7F3 /* WeatherViewController.swift */,
 			);
 			path = Controllers;
@@ -184,7 +184,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F07DC222256E39C70098D90A /* Constants.swift in Sources */,
-				F07DC224256E57D00098D90A /* ViewController.swift in Sources */,
+				F07DC224256E57D00098D90A /* RootViewController.swift in Sources */,
 				F05C931C2563F1A30078F7F3 /* WeatherViewController.swift in Sources */,
 				F05C93182563F1A30078F7F3 /* AppDelegate.swift in Sources */,
 				F07DC21E256E39090098D90A /* WeatherData.swift in Sources */,
