@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CoreLocation
 
 class WeatherViewController: UIViewController {
     
@@ -24,13 +23,10 @@ class WeatherViewController: UIViewController {
     public var city: String = ""
     private var weatherSummary: String?
     private var weatherData: WeatherData?
-    private let locationManager = CLLocationManager()
-    private var currentLocation: CLLocation?
     
     override func viewDidLoad() {
-        super.viewDidLoad()
         
-        setupLocation()
+        super.viewDidLoad()
         requestWeatherForLocation()
     }
     
@@ -40,13 +36,6 @@ class WeatherViewController: UIViewController {
         let backButton = UIBarButtonItem()
         backButton.title = ""
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
-    }
-    
-    private func setupLocation() {
-        
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
     }
     
     private func requestWeatherForLocation() {
@@ -60,7 +49,6 @@ class WeatherViewController: UIViewController {
                 return
             }
             do {
-                
                 let jsonResponse = try JSONDecoder().decode(WeatherData.self, from: data)
                 DispatchQueue.main.async {
                     self.weatherData = jsonResponse
@@ -72,7 +60,6 @@ class WeatherViewController: UIViewController {
             }
         }
         task.resume()
-        
     }
     private func jsonData() {
         
@@ -106,23 +93,8 @@ class WeatherViewController: UIViewController {
             self.summaryIcon.image = UIImage(named:Constants.smokeicon)
         case .some(_):
             self.summaryIcon.image = UIImage(named:Constants.smokeicon)
-            
-            
-        }
-        
-    }
-    
-}
-extension WeatherViewController:CLLocationManagerDelegate {
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        if !locations.isEmpty, currentLocation == nil {
-            currentLocation = locations.first
-            locationManager.stopUpdatingLocation()
         }
     }
-    
 }
 public func getDate(_ date:Date?) -> String {
     
