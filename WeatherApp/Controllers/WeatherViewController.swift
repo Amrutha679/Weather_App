@@ -38,9 +38,10 @@ class WeatherViewController: UIViewController {
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
     }
     func updateJsonData(){
-        
-        cityName.text = weatherViewModel.cityName
-        city = weatherViewModel.location ?? "'"
+
+        tempLabel.text = weatherViewModel.temperature
+        var location = city
+        location = weatherViewModel.cityName ?? ""
     }
    
 }
