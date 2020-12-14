@@ -25,9 +25,7 @@ class RootViewController: UIViewController {
     @IBAction func buttonTapped() {
         
         if field.text?.count != 0 {
-            
             performSegue(withIdentifier: Constants.identifier, sender: self)
-            
         } else {
             let alert = UIAlertController(title:nil, message:"Enter city name", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))

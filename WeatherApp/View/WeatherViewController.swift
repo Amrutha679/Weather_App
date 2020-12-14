@@ -71,9 +71,7 @@ class WeatherViewController: UIViewController {
                     case Constants.smoke:
                         self.summaryIcon.image = UIImage(named:Constants.smokeicon)
                     default: break
-                        
                     }
-                    
                 }
             }
         }
