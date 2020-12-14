@@ -10,7 +10,7 @@ import Foundation
 
 class WeatherService {
     
-    func getWeather(from city:String, completion: @escaping(Main?) -> ()) {
+    func getWeather(from city:String, completion: @escaping(WeatherData?) -> ()) {
         
         guard let request = URL(string: "https://api.openweathermap.org/data/2.5/weather?q=\(city)&appid=476e970d980b944a09b51d1fa68c9adb") else {
             completion(nil)
@@ -22,12 +22,15 @@ class WeatherService {
             }
             let jsonResponse = try? JSONDecoder().decode(WeatherData.self, from: data)
             if let weatherResponse = jsonResponse {
-                let weather = weatherResponse.main
+                let weather = weatherResponse
                 completion(weather)
             } else {
                 completion(nil)
             }
+           // print(urlResponse)
+            print(jsonResponse)
         }
+       
         task.resume()
     }
 }

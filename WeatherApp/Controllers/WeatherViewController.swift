@@ -20,16 +20,15 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var tempMaxLabel: UILabel!
     @IBOutlet weak var tempMinLabel: UILabel!
     
-    
     var weatherViewModel = WeatherViewModel()
     var city: String = ""
-   
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        weatherViewModel.requestWeatherForLocation()
-        updateJsonData()
-    }
     
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        jsonData()
+        
+    }
     override func viewWillAppear(_ animated: Bool) {
         
         self.navigationController?.view.tintColor = UIColor.blue
@@ -37,21 +36,60 @@ class WeatherViewController: UIViewController {
         backButton.title = ""
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
     }
-    func updateJsonData(){
+    func jsonData() {
+        
+        weatherViewModel.fetchWeather(by: city){ weatherData in
+            if let weather = weatherData {
+                DispatchQueue.main.async {
+                    
+                    self.tempLabel.text = "\(weatherData?.main.temp)"
+                    print("\(weatherData?.main.temp)")
+                    var weatherSummary: String?
+                    self.cityName.text = "\(weatherData?.name ?? "")"
+                    self.humidity.text = "\(Int(weatherData?.main.humidity ?? 0))%"
+                    self.pressure.text = "\(Int(weatherData?.main.pressure ?? 0))Pa"
+                    self.dateLabel.text = self.getDate(Date(timeIntervalSince1970: Double(weatherData?.dt ?? 0)) )
+                    self.tempLabel.text = "\(Int(weatherData?.main.temp ?? 0)-273)°c"
+                    self.tempMaxLabel.text = "\(Int(weatherData?.main.tempMax ?? 0)-273)°c"
+                    self.tempMinLabel.text = "\(Int(weatherData?.main.tempMin ?? 0)-273)°c"
+                    self.summaryLabel.text  = "\(weatherData?.weather[0].weatherDescription ?? "")"
+                    //self.weatherSummary.text = "\(weatherData?.weather[0].main ?? "")"
+                    //var summaryIcon = "\(self.weatherData?.weather[0].icon)"
+                    
+                    switch (weatherSummary) {
+                        
+                    case Constants.clouds:
+                        self.summaryIcon.image = UIImage(named:Constants.cloudicon)
+                    case Constants.haze:
+                        self.summaryIcon.image = UIImage(named:Constants.hazeicon)
+                    case Constants.sun:
+                        self.summaryIcon.image = UIImage(named:Constants.sunicon)
+                    case Constants.mist:
+                        self.summaryIcon.image = UIImage(named:Constants.misticon)
+                    case Constants.rain:
+                        self.summaryIcon.image = UIImage(named:Constants.rainicon)
+                    case Constants.clear:
+                        self.summaryIcon.image = UIImage(named:Constants.clearsky)
+                    case Constants.smoke:
+                        self.summaryIcon.image = UIImage(named:Constants.smokeicon)
+                    default: break
+                        
+                    }
+                    
+                }
+            }
+        }
+    }
+    public func getDate(_ date:Date?) -> String {
+        
+        guard let inputDate = date else {
+            return ""
+        }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM d, yyyy"
+        return formatter.string(from: inputDate)
+    }
+}
 
-        tempLabel.text = weatherViewModel.temperature
-        var location = city
-        location = weatherViewModel.cityName ?? ""
-    }
-   
-}
-public func getDate(_ date:Date?) -> String {
-    
-    guard let inputDate = date else {
-        return ""
-    }
-    let formatter = DateFormatter()
-    formatter.dateFormat = "MMM d, yyyy"
-    return formatter.string(from: inputDate)
-}
+
 
