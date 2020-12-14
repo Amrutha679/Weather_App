@@ -22,13 +22,14 @@ class WeatherViewController: UIViewController {
     
     var weatherViewModel = WeatherViewModel()
     var city: String = ""
+    var weatherSummary: String?
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         jsonData()
-        
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         
         self.navigationController?.view.tintColor = UIColor.blue
@@ -36,15 +37,13 @@ class WeatherViewController: UIViewController {
         backButton.title = ""
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
     }
+    
     func jsonData() {
         
         weatherViewModel.fetchWeather(by: city){ weatherData in
-            if let weather = weatherData {
+            if weatherData != nil {
                 DispatchQueue.main.async {
                     
-                    self.tempLabel.text = "\(weatherData?.main.temp)"
-                    print("\(weatherData?.main.temp)")
-                    var weatherSummary: String?
                     self.cityName.text = "\(weatherData?.name ?? "")"
                     self.humidity.text = "\(Int(weatherData?.main.humidity ?? 0))%"
                     self.pressure.text = "\(Int(weatherData?.main.pressure ?? 0))Pa"
@@ -53,10 +52,9 @@ class WeatherViewController: UIViewController {
                     self.tempMaxLabel.text = "\(Int(weatherData?.main.tempMax ?? 0)-273)°c"
                     self.tempMinLabel.text = "\(Int(weatherData?.main.tempMin ?? 0)-273)°c"
                     self.summaryLabel.text  = "\(weatherData?.weather[0].weatherDescription ?? "")"
-                    //self.weatherSummary.text = "\(weatherData?.weather[0].main ?? "")"
-                    //var summaryIcon = "\(self.weatherData?.weather[0].icon)"
+                    self.weatherSummary = "\(weatherData?.weather[0].main ?? "")"
                     
-                    switch (weatherSummary) {
+                    switch (self.weatherSummary) {
                         
                     case Constants.clouds:
                         self.summaryIcon.image = UIImage(named:Constants.cloudicon)

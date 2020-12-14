@@ -27,10 +27,7 @@ class WeatherService {
             } else {
                 completion(nil)
             }
-           // print(urlResponse)
-            print(jsonResponse)
         }
-       
         task.resume()
     }
 }
