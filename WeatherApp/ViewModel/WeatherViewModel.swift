@@ -10,12 +10,11 @@ import Foundation
 
 class WeatherViewModel {
     
-    var weatherService = WeatherService()
-    var weatherData: WeatherData?
+    private var weatherService = WeatherService()
     
-    func fetchWeather(by city: String, completion: @escaping(WeatherData?) -> ()) {
+    func fetchWeather(_ city: String, completion: @escaping(WeatherData?) -> ()) {
         
-        self.weatherService.getWeather(from: city) { weatherData in
+        self.weatherService.getWeather(city) { weatherData in
             if weatherData != nil {
                 completion(weatherData)
             }
